@@ -12,11 +12,12 @@ const useGameStore = create(
             ? nextXIsNext(state.xIsNext)
             : nextXIsNext,
       }),
+    reset: () => set({ squares: Array(9).fill(null), xIsNext: true }),
   }))
 );
 
 export default function Board() {
-  const { squares, xIsNext, setSquares, setXIsNext } = useGameStore();
+  const { squares, xIsNext, setSquares, setXIsNext, reset } = useGameStore();
   const winner = calculateWinner(squares);
   const turns = calculateTurns(squares);
   const player = xIsNext ? "X" : "0";
@@ -42,6 +43,9 @@ export default function Board() {
           />
         ))}
       </div>
+      <button className="reset-button" onClick={reset}>
+        Reset Game
+      </button>
     </main>
   );
 }
